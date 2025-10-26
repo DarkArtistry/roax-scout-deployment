@@ -27,12 +27,19 @@ MEGA Blockscout is an **all-in-one blockchain development platform** that integr
 - Slashing detection and alerts
 - Complete consensus layer visibility alongside execution data
 
-### 💻 **Integrated Smart Contract IDE**
-- **Write**: Full-featured Solidity code editor with syntax highlighting
-- **Compile**: In-browser Solidity compilation
-- **Deploy**: Direct contract deployment through MetaMask integration
-- **Verify**: Automatic contract verification upon deployment
-- **Interact**: Test and debug contracts directly in the explorer
+### 💻 **Integrated Smart Contract IDE** (100% Browser-based)
+- **Write**: Full-featured Monaco editor with Solidity syntax highlighting
+- **Compile**: Real in-browser Solidity compilation using `solc.js` + Web Worker
+- **Import**: Automatic OpenZeppelin contract resolution from GitHub CDN
+- **Deploy**: Direct contract deployment through MetaMask/WalletConnect
+- **Verify**: Automatic contract verification upon deployment  
+- **Templates**: Pre-built templates (ERC20, USDC, NFT, etc.)
+
+**Technical Architecture**: 
+- **Solc + Web Worker**: The Solidity compiler (`solc.js`) runs in a dedicated Web Worker thread, preventing UI freezing during compilation
+- **WebAssembly Power**: Uses the official Solidity compiler compiled to WASM for near-native performance
+- **Zero Backend Dependency**: No compilation server, no Docker container - pure frontend magic!
+- **CDN Import System**: Resolves imports by fetching contracts directly from GitHub/CDN in real-time
 
 ### 📊 **Blockscout SDK Integration**
 - Real-time transaction monitoring
@@ -113,14 +120,15 @@ NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your-project-id
 │                    MEGA Blockscout                      │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│  ┌─────────────┐  ┌──────────────┐  ┌───────────────┐ │
-│  │   Frontend  │  │   Backend    │  │  Smart Contract│ │
-│  │   Next.js   │  │   Elixir     │  │     IDE       │ │
-│  │  + SDK Int. │  │ + Validator  │  │   Solidity    │ │
-│  └──────┬──────┘  │    APIs      │  │   Compiler    │ │
-│         │         └──────┬────────┘  └───────┬───────┘ │
-│         │                │                    │         │
-├─────────┴────────────────┴────────────────────┴─────────┤
+│  ┌─────────────────────────┐  ┌───────────────────────┐ │
+│  │      Frontend          │  │      Backend          │ │
+│  │      Next.js           │  │      Elixir           │ │
+│  │   + SDK Integration    │  │  + Validator APIs     │ │
+│  │   + Smart Contract IDE │  │  + Lighthouse Client  │ │
+│  │   + Solidity Compiler  │  │  + Blockchain Indexer │ │
+│  └──────────┬─────────────┘  └───────────┬────────────┘ │
+│              │                           │              │
+├─────────────┴───────────────────────────┴──────────────┤
 │                     Docker Network                       │
 ├─────────────────────────┬─────────────────────────────┤
 │    Execution Client     │     Consensus Client          │
@@ -153,13 +161,22 @@ NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your-project-id
 - Fork choice visualization
 - Network health metrics
 
-#### 💡 Integrated Smart Contract IDE
-- Monaco editor with Solidity support
-- Multi-file project management
-- Import resolution
-- Real-time compilation feedback
-- Gas estimation
-- One-click deployment
+#### 💡 Integrated Smart Contract IDE (Browser-based)
+- Monaco editor with full Solidity syntax highlighting
+- Multi-file project management with file tree
+- Automatic OpenZeppelin import resolution from GitHub
+- Real-time compilation using `solc` + Web Worker
+- Actual bytecode generation and ABI extraction
+- Gas estimation and constructor parameter handling
+- One-click deployment via MetaMask/WalletConnect
+
+##### 🔧 How the Solidity Compiler Works
+- **Web Worker Architecture**: Compilation runs in a separate thread to keep UI responsive
+- **Solc.js Integration**: Uses official Solidity compiler compiled to WebAssembly
+- **Import Resolution**: Fetches OpenZeppelin and other imports directly from GitHub CDN
+- **Multiple Versions**: Supports Solidity 0.8.19, 0.8.20, 0.8.24, 0.8.25, 0.8.26
+- **Real Bytecode**: Generates actual deployable bytecode, not mock data
+- **No Backend Required**: Everything runs in your browser - compilation, optimization, and ABI generation
 
 #### 📡 Blockscout SDK Features
 - WebSocket subscriptions
