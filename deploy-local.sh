@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Roax Scout - Local Deployment Script
-# This script helps you deploy the Roax blockchain explorer locally
+# MEGA Blockscout - Local Deployment Script
+# This script helps you deploy the MEGA Blockscout (Make Ethereum Great Again) explorer locally
 
 set -e
 
@@ -16,8 +16,8 @@ DOCKER_COMPOSE_FILE="docker-compose.yml"
 COMPOSE_DIR="blockscout-backend/docker-compose"
 
 echo "====================================="
-echo "Roax Scout - Local Deployment"
-echo "====================================="
+echo "MEGA Blockscout - Local Deployment"
+echo "===================================="
 echo ""
 
 # Function to print colored output
@@ -63,7 +63,7 @@ echo ""
 
 # Navigate to docker-compose directory
 if [ ! -d "$COMPOSE_DIR" ]; then
-    print_error "Directory $COMPOSE_DIR not found. Please run this script from the roax-scout root directory."
+    print_error "Directory $COMPOSE_DIR not found. Please run this script from the mega-blockscout root directory."
     exit 1
 fi
 
@@ -112,8 +112,8 @@ echo ""
 print_info "This will start the following services:"
 echo "  - PostgreSQL database"
 echo "  - Redis cache"
-echo "  - Blockscout backend"
-echo "  - Blockscout frontend"
+echo "  - MEGA Blockscout backend (with validator APIs)"
+echo "  - MEGA Blockscout frontend (with IDE & SDK)"
 echo "  - Stats service"
 echo "  - Visualizer service"
 echo "  - Signature provider"
@@ -199,8 +199,10 @@ else
 fi
 
 echo ""
-print_info "Deployment complete!"
+print_info "MEGA Blockscout deployment complete!"
 print_info "The services are starting up. Please wait a few minutes for full initialization."
+print_info "Visit the Smart Contract IDE at http://localhost/ide"
+print_info "View validator dashboard at http://localhost/validators"
 echo ""
 
 # Offer to follow logs

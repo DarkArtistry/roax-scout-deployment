@@ -198,8 +198,8 @@ Static External IP: Required for domain mapping
 5. **Commit and push**:
    ```bash
    git add .
-   git commit -m "Initial Roax Scout deployment configuration"
-   git remote add origin https://github.com/YOUR_USERNAME/roax-scout-deployment.git
+   git commit -m "Initial MEGA Blockscout deployment configuration"
+   git remote add origin https://github.com/YOUR_USERNAME/mega-blockscout-deployment.git
    git push -u origin main
    ```
 

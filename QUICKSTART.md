@@ -1,6 +1,6 @@
-# Quick Start Guide - Roax Scout Explorer
+# Quick Start Guide - MEGA Blockscout Explorer
 
-Get your Roax blockchain explorer running locally in under 10 minutes.
+Get your MEGA Blockscout (Make Ethereum Great Again) blockchain explorer with integrated Smart Contract IDE and Validator APIs running locally in under 10 minutes.
 
 ## Prerequisites Check
 
@@ -25,14 +25,14 @@ docker ps
 cd blockscout/docker-compose
 ```
 
-### 2. Configure for Roax Network
+### 2. Configure for Roax Network with MEGA Features
 
-The custom Roax configuration files are already created:
+The custom MEGA Blockscout configuration files are already created:
 - `roax.yml` - Docker compose configuration
-- `envs/roax-blockscout.env` - Backend configuration
-- `envs/roax-frontend.env` - Frontend configuration
+- `envs/roax-blockscout.env` - Backend configuration with validator APIs
+- `envs/roax-frontend.env` - Frontend configuration with IDE and SDK
 
-To use these configurations, you need to update the service definitions to use the Roax-specific environment files.
+To use these configurations, you need to update the service definitions to use the MEGA-enhanced environment files.
 
 ### 3. Update Service Configurations
 
@@ -189,7 +189,7 @@ docker compose -f roax.yml exec db psql -U blockscout
 
 ## Alternative: Using Existing Geth Config
 
-If you prefer to use the existing `geth.yml` configuration, you can modify the environment files directly:
+If you prefer to use the existing `geth.yml` configuration with MEGA features, you can modify the environment files directly:
 
 ```bash
 # Edit the backend configuration
@@ -198,9 +198,12 @@ nano envs/common-blockscout.env
 # Update these values:
 # ETHEREUM_JSONRPC_HTTP_URL=https://devrpc.roax.network
 # ETHEREUM_JSONRPC_TRACE_URL=https://devrpc.roax.network
+# INDEXER_BEACON_RPC_URL=https://devbeacon.roax.network  # Lighthouse beacon
 # CHAIN_ID=135
 # COIN=PLASMA
 # COIN_NAME=PLASMA
+# VALIDATOR_APIS_ENABLED=true
+# CONTRACT_EDITOR_ENABLED=true
 
 # Edit the frontend configuration
 nano envs/common-frontend.env
@@ -210,6 +213,9 @@ nano envs/common-frontend.env
 # NEXT_PUBLIC_NETWORK_ID=135
 # NEXT_PUBLIC_NETWORK_CURRENCY_NAME=PLASMA
 # NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=PLASMA
+# NEXT_PUBLIC_CONTRACT_EDITOR_ENABLED=true
+# NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE=beacon
+# NEXT_PUBLIC_SDK_ENABLED=true
 
 # Start with geth configuration
 docker compose -f geth.yml up -d
@@ -217,15 +223,17 @@ docker compose -f geth.yml up -d
 
 ## Next Steps
 
-After your explorer is running:
+After your MEGA Blockscout explorer is running:
 
 1. **Monitor Indexing Progress**
    - Check the latest block indexed: http://localhost/api/v1/stats
    - Compare with your chain's latest block
 
-2. **Test Smart Contract Verification**
-   - Deploy a test contract to Roax network
-   - Try verifying it through the explorer
+2. **Test MEGA Features**
+   - Access the Smart Contract IDE at `/ide`
+   - Write, compile, and deploy a contract
+   - Check validator dashboard at `/validators`
+   - Test Blockscout SDK integration
 
 3. **Configure Production Settings**
    - See the main README.md for production deployment

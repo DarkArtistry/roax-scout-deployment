@@ -9,14 +9,14 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 echo "========================================="
-echo -e "${BLUE}Roax Scout Deployment Script${NC}"
+echo -e "${BLUE}MEGA Blockscout Deployment Script${NC}"
 echo "========================================="
 echo ""
 
 # Check if we're in the right directory
 if [ ! -f "docker-compose/docker-compose.yml" ]; then
     echo -e "${RED}Error:${NC} docker-compose/docker-compose.yml not found"
-    echo "Please run this script from the roax-scout-deployment directory"
+    echo "Please run this script from the mega-blockscout-deployment directory"
     exit 1
 fi
 
@@ -54,8 +54,13 @@ echo "========================================="
 echo -e "${GREEN}[COMPLETE]${NC} Deployment complete!"
 echo "========================================="
 echo ""
-echo "Access your Blockscout instance at:"
+echo "Access your MEGA Blockscout instance at:"
 echo "  https://ethglobal-blockscout.roax.network"
+echo ""
+echo "Key features:"
+echo "  - Smart Contract IDE: /ide"
+echo "  - Validator Dashboard: /validators"
+echo "  - API Documentation: /api-docs"
 echo ""
 echo "Useful commands:"
 echo "  docker-compose logs -f         # Follow logs"

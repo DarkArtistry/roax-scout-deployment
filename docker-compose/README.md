@@ -1,6 +1,6 @@
-# Docker-compose configuration
+# Docker-compose Configuration for MEGA Blockscout
 
-Runs Blockscout locally in Docker containers with [docker-compose](https://github.com/docker/compose).
+Runs MEGA Blockscout (Make Ethereum Great Again) locally in Docker containers with [docker-compose](https://github.com/docker/compose), including enhanced features like Smart Contract IDE, Validator APIs, and Blockscout SDK integration.
 
 ## Prerequisites
 
@@ -19,13 +19,13 @@ docker-compose up --build
 
 **Note**: if you don't need to make backend customizations, you can run `docker-compose up` in order to launch from pre-build backend Docker image. This will be much faster.
 
-This command uses `docker-compose.yml` by-default, which builds the backend of the explorer into the Docker image and runs 9 Docker containers:
+This command uses `docker-compose.yml` by-default, which builds the MEGA-enhanced backend of the explorer into the Docker image and runs 9 Docker containers:
 
 - Postgres 14.x database, which will be available at port 7432 on the host machine.
 - Redis database of the latest version.
-- Blockscout backend with api at /api path.
+- MEGA Blockscout backend with api at /api path (includes validator APIs and Lighthouse integration).
 - Nginx proxy to bind backend, frontend and microservices.
-- Blockscout explorer at http://localhost.
+- MEGA Blockscout explorer at http://localhost with Smart Contract IDE and SDK.
 
 and 5 containers for microservices (written in Rust):
 
@@ -57,12 +57,16 @@ The repo contains built-in configs for different JSON RPC clients without need t
 
 All of the configs assume the Ethereum JSON RPC is running at http://localhost:8545.
 
+For MEGA features, you'll also need:
+- Lighthouse beacon node endpoint for validator APIs
+- Wallet Connect project ID for the Smart Contract IDE
+
 In order to stop launched containers, run `docker-compose -f config_file.yml down`, replacing `config_file.yml` with the file name of the config which was previously launched.
 
-You can adjust BlockScout environment variables:
+You can adjust MEGA Blockscout environment variables:
 
-- for backend in `./envs/common-blockscout.env`
-- for frontend in `./envs/common-frontend.env`
+- for backend in `./envs/common-blockscout.env` (includes validator API settings)
+- for frontend in `./envs/common-frontend.env` (includes IDE and SDK settings)
 - for stats service in `./envs/common-stats.env`
 - for visualizer in `./envs/common-visualizer.env`
 - for user-ops-indexer in `./envs/common-user-ops-indexer.env`
